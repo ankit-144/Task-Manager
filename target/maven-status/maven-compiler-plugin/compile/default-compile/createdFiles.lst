@@ -1,0 +1,9 @@
+org/example/health/DatabaseHealthChecks.class
+org/example/core/Task$Status.class
+org/example/TodoApplication$1.class
+org/example/resources/TaskResource.class
+org/example/core/Task.class
+org/example/TodoApplication.class
+org/example/db/TaskMapper.class
+org/example/TodoApplicationConfiguration.class
+org/example/dao/TaskDAO.class
