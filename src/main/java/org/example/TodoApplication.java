@@ -11,6 +11,7 @@ import org.example.dao.TaskDAO;
 import org.example.health.DatabaseHealthChecks;
 import org.example.resources.TaskResource;
 import org.jdbi.v3.core.Jdbi;
+import org.example.filters.CorsFilter;
 /*import io.prometheus.client.dropwizard.DropwizardExports;*/
 
 
@@ -44,10 +45,16 @@ public class TodoApplication extends Application<TodoApplicationConfiguration> {
         final Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "db");
         final TaskDAO taskDAO = jdbi.onDemand(TaskDAO.class);
 
+
+        environment.jersey().register(new CorsFilter(configuration.getCorsConfiguration()));
         environment.jersey().register(new TaskResource(taskDAO));
+
+
 
         environment.healthChecks().register("health",
                 new DatabaseHealthChecks(jdbi, configuration.getDataSourceFactory().getValidationQuery().orElse("SELECT 1")));
+
+
 
         /*registerMetrics(environment);*/
     }
